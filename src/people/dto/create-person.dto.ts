@@ -3,12 +3,12 @@ import { IsDefined, IsInt, IsNegative, IsNotEmpty, IsPositive, MinLength, } from
 export class CreatePersonDto {
   
   
-  @IsNotEmpty({message:'A név nem lehet üres'})
-  @MinLength(4,{message:'A név legalább 4 karakter hosszú legyen!'})
+  @IsNotEmpty({message:'A név megadása kötelező!'})
+  @MinLength(4,{message:'A névnek legalább 4 karakter hosszúnak kell lennie!'})
   name:string;
   @IsDefined({message:'A kor megadás kötelező'})
   @IsInt()
-  @IsPositive({message:'Ne legye negatív'})
+  @IsPositive({message:'A kor nem lehet negatív szám!'})
   age:number;
   @IsDefined({message:'Város megadása kötelező'})
   City:string;

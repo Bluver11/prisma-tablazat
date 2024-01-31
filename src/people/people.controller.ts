@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, NotFoundException } from '@nestjs/common';
 import { PeopleService } from './people.service';
 import { CreatePersonDto } from './dto/create-person.dto';
 import { UpdatePersonDto } from './dto/update-person.dto';
@@ -18,17 +18,32 @@ export class PeopleController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.peopleService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    try{return await this.peopleService.findOne(+id);
+    }
+    catch(e)
+    {
+      if(e.code = "P2025"){
+      throw new NotFoundException('A keresett ID nem található!');
+      }else{
+        throw e;
+      }
+    }
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePersonDto: UpdatePersonDto) {
-    return this.peopleService.update(+id, updatePersonDto);
+  async update(@Param('id') id: string, @Body() updatePersonDto: UpdatePersonDto) {
+   try{ return await this.peopleService.update(+id, updatePersonDto);
+   }catch{
+    throw new NotFoundException('A keresett ID nem található!')
+   }
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.peopleService.remove(+id);
+   async remove(@Param('id') id: string) {
+    try{return await this.peopleService.remove(+id);
+    }catch{
+      throw new NotFoundException('A keresett ID nem található!')
+    }
   }
 }

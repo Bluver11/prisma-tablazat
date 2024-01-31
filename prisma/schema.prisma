@@ -12,7 +12,7 @@ datasource db {
 
 
 
-model People{
+model people{
   id Int @id @default(autoincrement())
   name String
   age Int
