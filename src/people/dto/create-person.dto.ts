@@ -11,5 +11,5 @@ export class CreatePersonDto {
   @IsPositive({message:'A kor nem lehet negatív szám!'})
   age:number;
   @IsDefined({message:'Város megadása kötelező'})
-  City:string;
+  city:string;
 }
